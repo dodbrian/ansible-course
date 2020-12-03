@@ -1,0 +1,37 @@
+---
+
+- name: Ensure git installed
+  hosts: centos
+  tags: ['install-git']
+  tasks:
+  - package: name=git state=latest
+    when: ansible_os_family == 'RedHat'
+    become: yes
+
+- name: Ensure ~/.gitconfig copied from master.gitconfig
+  hosts: vagrant
+  tasks:
+  
+  - name: git_config module simplifies listing configuration
+    git_config: list_all=yes scope=global
+
+  - name: first show no config in targets
+    command: git config --global --list
+    ignore_errors: yes
+    register: git_config_before
+
+  - name: show git config output always - verbosity 0 is default for debug module
+    debug: var=git_config_before
+
+  - name: tried and true copy module with master.gitconfig from previously in the course
+    copy: src=master.gitconfig dest=~/.gitconfig
+
+  - name: show newly added config
+    command: git config --global --list
+    ignore_errors: yes
+    register: git_config_after
+
+  - name: ensure to show git config after with debug - this time only show stdout_lines
+    debug: var=git_config_after.stdout_lines
+
+    
