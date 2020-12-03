@@ -1,0 +1,11 @@
+# host variables for the db01 system
+---
+
+ansible_private_key_file: '.vagrant/machines/db01/virtualbox/private_key'
+become_ask_pass: True
+custom_db_port: 1234
+
+# ansible_host: db01
+# ansible_prot: 22
+# ansible_user: vagrant
+# ansible_become: false

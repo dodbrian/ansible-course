@@ -1,0 +1,9 @@
+# host variables for the db02 system
+---
+
+ansible_private_key_file: '.vagrant/machines/db02/virtualbox/private_key'
+
+# ansible_host: db02
+# ansible_prot: 22
+# ansible_user: vagrant
+# ansible_become: false
