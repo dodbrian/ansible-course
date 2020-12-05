@@ -571,3 +571,50 @@ The `url` lookup plugin is useful to grab the content of a web page or the outpu
       loop: "{{ amazon_ip_ranges['ipv6_prefixes'] }}"
 ```
 
+## Roles
+
+Allows you to create generic code for one project and reuse it on other projects.
+
+```bash
+# Initializes a new role template
+$ ansible-galaxy init role-name
+```
+
+### Using a Role in a Playbook
+
+```yml
+- name: Play to create shared folder
+  hosts: ftpservers
+
+  roles:
+    - vsftpd_server
+
+    - role: vsftpd_server
+      vars:
+        ftp_config_src: vsftpd_special.conf.j2
+
+  # Alternatively a role could be called from the task
+  tasks:
+    - name: Execute role
+      include_role:
+        name: vsftpd_server
+      vars:
+        ftp_config_src: vsftpd_special.conf.j2
+```
+
+### Documenting the Role
+
+```yml
+# meta/main.yml
+---
+
+galaxy_info:
+  author: Author Name
+  description: Role description
+  company: Company name (optional)
+
+  license: license (GPL-2.0-or-later, MIT, etc)
+
+  min_ansible_version: 2.1
+```
+
