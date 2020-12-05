@@ -618,3 +618,45 @@ galaxy_info:
   min_ansible_version: 2.1
 ```
 
+## Ansible Galaxy
+
+Public library of Ansible content: https://galaxy.ansible.com/.
+
+### Ansible Galaxy CLI
+
+- The `ansible-galaxy` CLI tool can be used to search for, display information about, install, list, remove or initialize roles.
+- `ansible-galaxy search` searches for roles.
+  - `--author`, `--platforms` and `--galaxy-tags` options can be used to narrow search results.
+- `ansible-galaxy info` displays more detailed information about a role.
+- `ansible-galaxy install` downloads a role and installs it.
+- `ansible-galaxy list` lists all currently installed roles.
+- `ansible-galaxy remove role-name` removes a given installed role.
+
+### Installing Roles Using a Requirements File
+
+```yml
+# roles/requirements.yml
+---
+
+# from Ansible Galaxy, using the latest version
+- src: geerlingguy.redis
+
+# from Ansible Galaxy, using specific version
+- src: geerlingguy.redis
+  version: "1.0.6"
+
+# from a Git repo using HTTPS and selection a specific commit
+- src: https://gitlab.example.com/automation/shared.git
+  scm: git
+  version: 56e00a54
+  name: linux_shared_directory
+
+# from a Git repo using SSH and selecting the master branch
+- src: git@gitlab.example.com:automation/shared.git
+  scm: git
+  version: master
+```
+
+```bash
+$ ansible-galaxy install -r roles/requirements.yml -p roles
+```
