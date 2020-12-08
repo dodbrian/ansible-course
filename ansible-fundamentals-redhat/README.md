@@ -1,6 +1,6 @@
 # Notes to Red Hat Ansible Fundamentals Course
 
-Link to the course on [PluralSight](https://app.pluralsight.com/course-player?clipId=47938779-c3ce-44d1-a031-731010d94559)
+Link to the course on [PluralSight](https://app.pluralsight.com/course-player?clipId=b91a8273-ad93-4328-8a0f-bc04c5b4b5a0)
 
 ## Ansible Inventory
 
@@ -660,3 +660,27 @@ Public library of Ansible content: https://galaxy.ansible.com/.
 ```bash
 $ ansible-galaxy install -r roles/requirements.yml -p roles
 ```
+
+## Dynamic Inventories
+
+A dynamic inventory script is an executable that can build an inventory automatically, for example, from an external database. A script should be marked as executable and return output in JSON format.
+
+The `_meta` section can be used to provide inventory variables from the external source. If the script doesn't provide inventory variables, provide an empty `_meta` section to speed up processing:
+
+```json
+{
+  "meta": {
+    "hostvars": {}
+  }
+}
+```
+
+## Structuring Inventories
+
+Hosts can be assigned to multiple groups organized in different ways:
+- by function of the server -- what its purpose is
+- by geographic location -- region, datacenter, row, rack
+- by processor architecture
+- by operating system or operation system version
+- by place in the lifecycle -- development, testing, staging, production
+
